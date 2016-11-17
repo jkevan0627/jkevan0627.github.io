@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D3 Visualization</title>
+  <script src="https://d3js.org/d3.v4.js"></script>
+  <style>
+    path {
+      stroke: steelblue;
+      stroke-width: 2;
+      fill: none;
+    }
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: grey;
+      stroke-width: 1;
+      shape-rendering: cripsEdges;
+    }
+
+  </style>
+</head>
+<body>
+
+  <script>
+  var margin = {top: 30, right: 20, bottom: 30, left: 50},
+       width = 600 - margin.left - margin.right,
+       height = 270 - margin.top - margin.bottom;
+
+  var svg = d3.select("body")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+      var parseDate = d3.timeParse("%d-%b-%y");  //Change from: d3.time.format("%d-%b-%y").parse;
+
+      // Making my own data object
+      var myData = [
+        {
+          "date": parseDate('1-May-12'),
+          "close": 58.13
+        },
+        {
+          "date": parseDate('30-Apr-12'),
+          "close": 53.98
+        },
+        {
+          "date": parseDate('27-Apr-12'),
+          "close": 67.00
+        },
+        {
+          "date": parseDate('26-Apr-12'),
+          "close": 89.70
+        },
+        {
+          "date": parseDate('25-Apr-12'),
+          "close": 99.00
+        }
+      ];
+
+      // x Axis STUFF
+      var x = d3.scaleTime().range([0, width]); // Change from: d3.time.scale().range([0, width]);
+      x.domain(d3.extent(myData, function(d){
+        return d.date;
+      }));
+
+      var xAxis = d3.axisBottom(x).ticks(5);
+
+      // y Axis STUFF
+      var y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(myData, function(d){
+        return d.close;
+      })]);
+
+      var yAxis = d3.axisLeft(y).ticks(5);
+
+      // DRAW STUFF
+      svg.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(xAxis);
+
+      svg.append("g")
+        .attr("class", "y axis")
+        .call(yAxis);
+
+      var valueline = d3.line()
+        .x(function(d) {
+          return x(d.date);
+        })
+        .y(function(d) {
+          return y(d.close);
+        });
+
+      svg.append("path")
+        .attr("class", "line")
+        .attr("d", valueline(myData));
+
+  </script>
+
+</body>
+</html>
