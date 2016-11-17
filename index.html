@@ -3,104 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>D3 Visualization</title>
-  <script src="https://d3js.org/d3.v4.js"></script>
-  <style>
-    path {
-      stroke: steelblue;
-      stroke-width: 2;
-      fill: none;
-    }
-
-    .axis path,
-    .axis line {
-      fill: none;
-      stroke: grey;
-      stroke-width: 1;
-      shape-rendering: cripsEdges;
-    }
-
-  </style>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  
+  <title>Made with Thimble</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>GITHUB!</h1>
 
-  <script>
-  var margin = {top: 30, right: 20, bottom: 30, left: 50},
-       width = 600 - margin.left - margin.right,
-       height = 270 - margin.top - margin.bottom;
+  <div class="row">
+    <div class="col-md-12">
+      <image src="header.png"></image>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="text-center">NOW HIRING A PROGRAMMER</h1>
+    </div>
+  </div>
 
-  var svg = d3.select("body")
-      .append("svg")
-      .attr("width", width + margin.left + margin.right)
-      .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-      var parseDate = d3.timeParse("%d-%b-%y");  //Change from: d3.time.format("%d-%b-%y").parse;
-
-      // Making my own data object
-      var myData = [
-        {
-          "date": parseDate('1-May-12'),
-          "close": 58.13
-        },
-        {
-          "date": parseDate('30-Apr-12'),
-          "close": 53.98
-        },
-        {
-          "date": parseDate('27-Apr-12'),
-          "close": 67.00
-        },
-        {
-          "date": parseDate('26-Apr-12'),
-          "close": 89.70
-        },
-        {
-          "date": parseDate('25-Apr-12'),
-          "close": 99.00
-        }
-      ];
-
-      // x Axis STUFF
-      var x = d3.scaleTime().range([0, width]); // Change from: d3.time.scale().range([0, width]);
-      x.domain(d3.extent(myData, function(d){
-        return d.date;
-      }));
-
-      var xAxis = d3.axisBottom(x).ticks(5);
-
-      // y Axis STUFF
-      var y = d3.scaleLinear().range([height, 0]).domain([0, d3.max(myData, function(d){
-        return d.close;
-      })]);
-
-      var yAxis = d3.axisLeft(y).ticks(5);
-
-      // DRAW STUFF
-      svg.append("g")
-        .attr("class", "x axis")
-        .attr("transform", "translate(0," + height + ")")
-        .call(xAxis);
-
-      svg.append("g")
-        .attr("class", "y axis")
-        .call(yAxis);
-
-      var valueline = d3.line()
-        .x(function(d) {
-          return x(d.date);
-        })
-        .y(function(d) {
-          return y(d.close);
-        });
-
-      svg.append("path")
-        .attr("class", "line")
-        .attr("d", valueline(myData));
-
-  </script>
-
+  <div class="row">
+    <div class="col-md-6">
+      <p>
+        We are looking for a web developer who has programing experience in Ruby on Rails or similar MVC frameworks.
+      </p>
+    </div>
+    <div class="col-md-6">
+      <ul>
+        <li>Bachelor's degree and 2 years of professional experience are required</li>
+        <li>Self-directed and self-managed</li>
+        <li>Flexible work schedule</li>
+        <li>Telecommuting is available</li>
+      </ul>
+    </div>
+  </div>
+    
+  <div class="row">
+    <div class="col-md-4 text-center">
+     <image src="manoa.png" height="200px" width="200px"></image>
+    </div>
+    <div class="col-md-4">
+     <br/>
+     <br/>  
+     <p>
+       Please check the following site for the detail. <br/>
+        <a href="http://go.hawaii.edu/tk">http://go.hawaii.edu/tk</a>
+     </p>
+    </div>
+    <div class="col-md-4 text-right">
+     <br/>
+     <br/>
+     <image src="rails-logo.png" height="100px" width="100px"></image>
+    </div>
+  </div>
+  
 </body>
 </html>
